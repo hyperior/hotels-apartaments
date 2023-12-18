@@ -20,5 +20,8 @@
     "minimum-stability": "stable",
     "require": {
         "ext-pdo": "*"
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit"
     }
 }
