@@ -11,7 +11,9 @@ class ApartmentRepository implements BaseRepository
     {
         $connection = Connection::getInstance();
 
-        $statement = $connection->getConnection()->prepare('SELECT * FROM apartments WHERE CONCAT(noun," ",address) LIKE ?');
+        $statement = $connection->getConnection()->prepare('SELECT * FROM apartments AS a
+                                                                  INNER JOIN towns AS t ON a.town_id = t.id
+                                                                  WHERE CONCAT(a.noun," ",t.city," ",t.province) LIKE ?');
         $statement->execute(['%' . $search . '%']);
 
         return $statement->fetchAll();

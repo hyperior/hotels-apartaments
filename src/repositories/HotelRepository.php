@@ -13,8 +13,9 @@ class HotelRepository implements BaseRepository
 
         $statement = $connection->getConnection()->prepare('SELECT * FROM hotels AS h
                                                             INNER JOIN rooms AS r ON r.hotel_id = h.id
+                                                            INNER JOIN towns AS t ON h.town_id = t.id
                                                             WHERE r.availability = 0 
-                                                            AND CONCAT(h.noun," ",h.address," ",r.room) LIKE ?');
+                                                            AND CONCAT(h.noun," ",t.city," ",t.province," ",r.room) LIKE ?');
         $statement->execute(['%' . $search . '%']);
 
         return $statement->fetchAll();

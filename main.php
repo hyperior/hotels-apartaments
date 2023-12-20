@@ -4,14 +4,14 @@ use Destinia\PhpProject\controllers\Controller;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$key = $argv[1];
+if(!isset($argv[1]) || !isset($argv[2])) exit('La sentencia no posee los argumentos necesarios');
 
-if($key == 'search'){
+if($argv[1] == 'search'){
 
     $controller = new Controller();
 
     echo $controller->search(strtolower($argv[2]));
 
 }else{
-    echo "Primer argumento debe ser 'search'";
+    exit("Primer argumento debe ser 'search'");
 }

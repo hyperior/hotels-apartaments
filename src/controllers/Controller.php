@@ -29,14 +29,16 @@ class Controller
         foreach ($apartments as $a) {
 
             $benefits = $a['quantity'] . " apartamentos, " . $a['persons'] . " adultos";
+            $address = $a['city'] . ", " . $a['province'];
 
-            $resources[] = new Resource($a['noun'], $benefits, $a['address']);
+            $resources[] = new Resource($a['noun'], $benefits, $address);
         }
         foreach ($hotels as $h) {
 
             $benefits = $h['stars'] . " estrellas, habitación " . $h['room'];
+            $address = $h['city'] . ", " . $h['province'];
 
-            $resources[] = new Resource($h['noun'], $benefits, $h['address']);
+            $resources[] = new Resource($h['noun'], $benefits, $address);
         }
 
         return Utils::show($resources);

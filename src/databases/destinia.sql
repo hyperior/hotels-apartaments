@@ -23,20 +23,22 @@ DROP TABLE IF EXISTS `apartments`;
 CREATE TABLE `apartments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `noun` varchar(150) NOT NULL,
-  `address` text NOT NULL,
   `quantity` int(11) NOT NULL,
   `persons` tinyint(2) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id`)
+  `town_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_APARTMENT_TOWN` (`town_id`),
+  CONSTRAINT `FK_APARTMENT_TOWN` FOREIGN KEY (`town_id`) REFERENCES `towns` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `apartments` */
 
-insert  into `apartments`(`id`,`noun`,`address`,`quantity`,`persons`) values 
-(1,'Apartamento Palacio de la Luz','Madrid, Madrid',20,6),
-(2,'Apartamento El Faro','Barcelona, Barcelona',15,10),
-(3,'Apartamento La Perla','Pontevedra, Galicia',30,8),
-(4,'Apartamento El Bosque','Santiago de Compostela, Galicia',25,6),
-(5,'Apartamento La Posada','Avila, Avila',10,4);
+insert  into `apartments`(`id`,`noun`,`quantity`,`persons`,`town_id`) values 
+(1,'Apartamento Palacio de la Luz',20,6,1),
+(2,'Apartamento El Faro',15,10,2),
+(3,'Apartamento La Perla',30,8,3),
+(4,'Apartamento El Bosque',25,6,4),
+(5,'Apartamento La Posada',10,4,5);
 
 /*Table structure for table `hotels` */
 
@@ -46,21 +48,23 @@ CREATE TABLE `hotels` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `noun` varchar(150) NOT NULL,
   `stars` tinyint(1) NOT NULL,
-  `address` text NOT NULL,
-  PRIMARY KEY (`id`)
+  `town_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_HOTEL_TOWN` (`town_id`),
+  CONSTRAINT `FK_HOTEL_TOWN` FOREIGN KEY (`town_id`) REFERENCES `towns` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `hotels` */
 
-insert  into `hotels`(`id`,`noun`,`stars`,`address`) values 
-(1,'Hotel Palacio de la Luz',5,'Madrid, Madrid'),
-(2,'Hotel El Faro',4,'Barcelona, Barcelona'),
-(3,'Hotel La Perla',3,'Pontevedra, Galicia'),
-(4,'Hotel El Bosque',2,'Santiago de Compostela, Galicia'),
-(5,'Hotel La Posada',1,'Avila, Avila'),
-(6,'Hotel El Mirador',4,'Valencia, Valencia'),
-(7,'Hotel El Patio',2,'Cáceres, Extremadura'),
-(8,'Hotel La Playa',3,'Benidorm, Alicante');
+insert  into `hotels`(`id`,`noun`,`stars`,`town_id`) values 
+(1,'Hotel Palacio de la Luz',5,1),
+(2,'Hotel El Faro',4,2),
+(3,'Hotel La Perla',3,3),
+(4,'Hotel El Bosque',2,4),
+(5,'Hotel La Posada',1,5),
+(6,'Hotel El Mirador',4,6),
+(7,'Hotel El Patio',2,7),
+(8,'Hotel La Playa',3,8);
 
 /*Table structure for table `rooms` */
 
@@ -99,6 +103,29 @@ insert  into `rooms`(`id`,`hotel_id`,`room`,`availability`) values
 (21,7,'Doble',0),
 (22,8,'Matrimonial Vista al Mar',0),
 (23,8,'Doble Vista al Mar',0);
+
+/*Table structure for table `towns` */
+
+DROP TABLE IF EXISTS `towns`;
+
+CREATE TABLE `towns` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `city` varchar(100) NOT NULL,
+  `province` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `towns` */
+
+insert  into `towns`(`id`,`city`,`province`) values 
+(1,'Madrid','Madrid'),
+(2,'Barcelona','Barcelona'),
+(3,'Pontevedra','Galicia'),
+(4,'Santiago de Compostela','Galicia'),
+(5,'Avila','Avila'),
+(6,'Valencia','Valencia'),
+(7,'Cáceres','Extremadura'),
+(8,'Benidorm','Alicante');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -12,5 +12,16 @@ final class UtilsTest extends TestCase
 
     }
 
+    public function testShowResourceEmpty(){
+
+        $resources = [];
+
+        $expected = 'Hospedajes Encontrados:' . PHP_EOL;
+
+        $showResult = Utils::show($resources);
+
+        $this->assertEquals($showResult, $expected);
+
+    }
 
 }
